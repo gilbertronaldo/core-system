@@ -43,6 +43,16 @@ class PackageServiceProvider extends ServiceProvider
                 'uses' => 'AuthController@refresh',
                 'as' => 'auth.refresh',
             ]);
+
+            $router->post('me', [
+                'uses' => 'AuthController@me',
+                'as' => 'auth.me',
+            ]);
+
+            $router->post('check', [
+                'uses' => 'AuthController@check',
+                'as' => 'auth.check',
+            ]);
         });
     }
 

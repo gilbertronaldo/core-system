@@ -81,6 +81,50 @@ class AuthController extends Controller
     }
 
     /**
+     * Get the authenticated User.
+     *
+     * @return array
+     */
+    public function me()
+    {
+        try {
+
+            if (auth()->check()) {
+                $data = auth()->user();
+            } else {
+                throw new CoreException('Invalid Credentials', 401);
+            }
+
+            $response = CoreResponse::ok($data);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Check Token
+     *
+     * @return array
+     */
+    public function check()
+    {
+        try {
+
+            if (!auth()->check()) {
+                throw new CoreException('Invalid Credentials', 401);
+            }
+
+            $response = CoreResponse::ok();
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
      * Get the token array structure.
      *
      * @param $token
