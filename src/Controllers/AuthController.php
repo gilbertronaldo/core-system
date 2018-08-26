@@ -44,6 +44,43 @@ class AuthController extends Controller
     }
 
     /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return array
+     */
+    public function logout()
+    {
+        try {
+
+            auth()->invalidate();
+            $response = CoreResponse::ok();
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return array
+     */
+    public function refresh()
+    {
+        try {
+
+            $token = auth()->refresh();
+            $data = $this->responseWithToken($token);
+            $response = CoreResponse::ok($data);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
      * Get the token array structure.
      *
      * @param $token

@@ -23,14 +23,25 @@ class PackageServiceProvider extends ServiceProvider
         // API ROUTES
         $routeConfig = [
             'namespace' => 'GilbertRonaldo\CoreSystem\Controllers',
-            'prefix' => 'auth',
+            'prefix' => 'api/auth',
             'domain' => null,
+            'middleware' => 'api',
         ];
 
         $this->getRouter()->group($routeConfig, function($router) {
             $router->post('login', [
                 'uses' => 'AuthController@login',
                 'as' => 'auth.login',
+            ]);
+
+            $router->post('logout', [
+                'uses' => 'AuthController@logout',
+                'as' => 'auth.logout',
+            ]);
+
+            $router->post('refresh', [
+                'uses' => 'AuthController@refresh',
+                'as' => 'auth.refresh',
             ]);
         });
     }
