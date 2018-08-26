@@ -2,6 +2,7 @@
 
 namespace GilbertRonaldo\CoreSystem\Providers;
 
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -18,6 +19,20 @@ class PackageServiceProvider extends ServiceProvider
     public function boot()
     {
         require __DIR__ . '/../define.php';
+
+        // API ROUTES
+        $routeConfig = [
+            'namespace' => 'GilbertRonaldo\CoreSystem\Controllers',
+            'prefix' => 'auth',
+            'domain' => null,
+        ];
+
+        $this->getRouter()->group($routeConfig, function($router) {
+            $router->post('login', [
+                'uses' => 'AuthController@login',
+                'as' => 'auth.login',
+            ]);
+        });
     }
 
     /**
@@ -28,5 +43,15 @@ class PackageServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    /**
+     * Get the active router.
+     *
+     * @return Router
+     */
+    protected function getRouter()
+    {
+        return $this->app['router'];
     }
 }
