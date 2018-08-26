@@ -62,6 +62,25 @@ class AuthController extends Controller
     }
 
     /**
+     * Refresh a token.
+     *
+     * @return array
+     */
+    public function refresh()
+    {
+        try {
+
+            $token = auth()->refresh();
+            $data = $this->responseWithToken($token);
+            $response = CoreResponse::ok($data);
+        } catch (CoreException $exception) {
+            $response = CoreResponse::fail($exception);
+        }
+
+        return $response;
+    }
+
+    /**
      * Get the token array structure.
      *
      * @param $token

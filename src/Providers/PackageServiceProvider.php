@@ -38,6 +38,11 @@ class PackageServiceProvider extends ServiceProvider
                 'uses' => 'AuthController@logout',
                 'as' => 'auth.logout',
             ]);
+
+            $router->post('refresh', [
+                'uses' => 'AuthController@refresh',
+                'as' => 'auth.refresh',
+            ]);
         });
     }
 
