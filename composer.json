@@ -14,7 +14,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "GilbertRonaldo\\CoreSystem\\Providers"
+        "GilbertRonaldo\\CoreSystem\\Providers\\PackageServiceProvider"
       ],
       "aliases": {
       }
